@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Server Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+        <div class="card shadow border-danger">
+            <div class="card-body py-5">
+                <h1 class="display-1 text-danger">500</h1>
+                <h2 class="text-danger">⚠️ Something Went Wrong</h2>
+                <p class="lead text-muted">
+                    We're sorry, but something unexpected happened on our end.
+                </p>
+                <p class="text-muted">
+                    Our team has been notified and is working to fix the issue.<br/>
+                    Please try again later.
+                </p>
+                <hr />
+                <div class="d-flex justify-content-center gap-2">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-success">Go to Home</a>
+                    <a href="javascript:location.reload()" class="btn btn-outline-secondary">Refresh Page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

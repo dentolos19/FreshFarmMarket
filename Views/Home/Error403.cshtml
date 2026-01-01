@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "Forbidden";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+        <div class="card shadow border-danger">
+            <div class="card-body py-5">
+                <h1 class="display-1 text-danger">403</h1>
+                <h2 class="text-danger">🚫 Access Forbidden</h2>
+                <p class="lead text-muted">
+                    You do not have permission to access this resource.
+                </p>
+                <p class="text-muted">
+                    If you believe this is an error, please contact the administrator.
+                </p>
+                <hr />
+                <div class="d-flex justify-content-center gap-2">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-success">Go to Home</a>
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-outline-secondary">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,131 @@
-﻿<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+﻿@model FreshFarmMarket.Models.UserProfileViewModel
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">👤 Profile Photo</h5>
+            </div>
+            <div class="card-body text-center">
+                @if (!string.IsNullOrEmpty(Model.PhotoUrl))
+                {
+                    <img src="@Model.PhotoUrl" alt="Profile Photo" class="img-fluid rounded-circle mb-3" style="max-width: 200px; max-height: 200px; object-fit: cover;" />
+                }
+                else
+                {
+                    <div class="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 200px; height: 200px;">
+                        <span class="text-white display-1">👤</span>
+                    </div>
+                }
+                <h4>@Model.FullName</h4>
+                <p class="text-muted">@Model.Email</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">📋 Personal Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <strong>Full Name:</strong>
+                    </div>
+                    <div class="col-md-8">
+                        @Model.FullName
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <strong>Email:</strong>
+                    </div>
+                    <div class="col-md-8">
+                        @Model.Email
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <strong>Gender:</strong>
+                    </div>
+                    <div class="col-md-8">
+                        @Model.Gender
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <strong>Mobile Number:</strong>
+                    </div>
+                    <div class="col-md-8">
+                        @Model.MobileNumber
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <strong>Delivery Address:</strong>
+                    </div>
+                    <div class="col-md-8">
+                        @Model.DeliveryAddress
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header bg-warning">
+                <h5 class="mb-0">💳 Payment Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>Credit Card:</strong>
+                    </div>
+                    <div class="col-md-8">
+                        <span id="creditCardMasked">**** **** **** @Model.CreditCardNumber.Substring(Math.Max(0, Model.CreditCardNumber.Length - 4))</span>
+                        <span id="creditCardFull" style="display: none;">@Model.CreditCardNumber</span>
+                        <button type="button" class="btn btn-sm btn-outline-secondary ms-2" id="toggleCreditCard">
+                            Show
+                        </button>
+                    </div>
+                </div>
+                <small class="text-muted mt-2 d-block">
+                    <em>⚠️ Credit card access is logged for security purposes.</em>
+                </small>
+            </div>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">📝 About Me</h5>
+            </div>
+            <div class="card-body">
+                @* AboutMe is already HTML-encoded in the controller to prevent XSS *@
+                <p>@Html.Raw(Model.AboutMe)</p>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById('toggleCreditCard').addEventListener('click', function() {
+            var masked = document.getElementById('creditCardMasked');
+            var full = document.getElementById('creditCardFull');
+            var button = this;
+            
+            if (masked.style.display !== 'none') {
+                masked.style.display = 'none';
+                full.style.display = 'inline';
+                button.textContent = 'Hide';
+            } else {
+                masked.style.display = 'inline';
+                full.style.display = 'none';
+                button.textContent = 'Show';
+            }
+        });
+    </script>
+}
