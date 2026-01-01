@@ -6,12 +6,13 @@ namespace FreshFarmMarket;
 
 public class AuthDbContext(IConfiguration configuration) : IdentityDbContext<User>
 {
-    public DbSet<Log> Logs { get; set; }
+    public DbSet<AuditLog> AuditLogs { get; set; }
+    public DbSet<PasswordHistory> PasswordHistories { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         var connectionString = configuration.GetConnectionString("Default");
-        options.UseSqlServer(connectionString);
+        options.UseSqlite(connectionString);
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -19,10 +20,17 @@ public class AuthDbContext(IConfiguration configuration) : IdentityDbContext<Use
         base.OnModelCreating(builder);
 
         builder
-            .Entity<Log>()
+            .Entity<AuditLog>()
             .HasOne(a => a.User)
             .WithMany()
             .HasForeignKey(a => a.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder
+            .Entity<PasswordHistory>()
+            .HasOne(p => p.User)
+            .WithMany()
+            .HasForeignKey(p => p.UserId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

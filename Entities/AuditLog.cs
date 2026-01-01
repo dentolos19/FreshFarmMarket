@@ -1,10 +1,9 @@
 namespace FreshFarmMarket.Entities;
 
-public class Log
+public class AuditLog
 {
     public int Id { get; set; }
-    public required string Activity { get; set; }
-    public required string Address { get; set; }
+    public required string Action { get; set; }
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 
     // Foreign Keys

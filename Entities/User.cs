@@ -11,4 +11,6 @@ public class User : IdentityUser
     public required string DeliveryAddress { get; set; }
     public required string PhotoUrl { get; set; }
     public required string AboutMe { get; set; }
+    public DateTime? LastPasswordChangedAt { get; set; }
+    public string? CurrentSessionId { get; set; }
 }
