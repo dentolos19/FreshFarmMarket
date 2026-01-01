@@ -45,7 +45,8 @@ public class EmailService : IEmailService
             {
                 From = new MailAddress(senderEmail ?? "noreply@freshfarmmarket.com", senderName ?? "Fresh Farm Market"),
                 Subject = "Your Fresh Farm Market Login OTP",
-                Body = $@"
+                Body =
+                    $@"
                     <html>
                     <body>
                         <h2>Fresh Farm Market - Login Verification</h2>
@@ -57,7 +58,7 @@ public class EmailService : IEmailService
                         <p>Best regards,<br/>Fresh Farm Market Team</p>
                     </body>
                     </html>",
-                IsBodyHtml = true
+                IsBodyHtml = true,
             };
             mailMessage.To.Add(email);
 

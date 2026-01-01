@@ -11,20 +11,18 @@
             </div>
             <div class="card-body">
                 <div class="alert alert-info">
-                    <strong>Check your email!</strong><br/>
+                    <strong>Check your email!</strong><br />
                     We've sent a 6-digit verification code to <strong>@Model.Email</strong>
                 </div>
 
                 <form asp-action="VerifyOtp" method="post">
                     @Html.AntiForgeryToken()
-                    
+
                     <div asp-validation-summary="All" class="text-danger alert alert-danger" style="display: @(ViewData.ModelState.ErrorCount > 0 ? "block" : "none")"></div>
 
                     <div class="mb-4">
                         <label asp-for="Otp" class="form-label">Enter Verification Code</label>
-                        <input asp-for="Otp" class="form-control form-control-lg text-center" 
-                               placeholder="000000" maxlength="6" pattern="\d{6}" autofocus 
-                               style="letter-spacing: 10px; font-size: 24px;" />
+                        <input asp-for="Otp" class="form-control form-control-lg text-center" placeholder="000000" maxlength="6" pattern="\d{6}" autofocus style="letter-spacing: 10px; font-size: 24px;" />
                         <span asp-validation-for="Otp" class="text-danger"></span>
                     </div>
 
@@ -46,7 +44,7 @@
     <partial name="_ValidationScriptsPartial" />
     <script>
         // Auto-focus and auto-submit when 6 digits entered
-        document.querySelector('input[name="Otp"]').addEventListener('input', function() {
+        document.querySelector('input[name="Otp"]').addEventListener('input', function () {
             this.value = this.value.replace(/\D/g, '');
         });
     </script>

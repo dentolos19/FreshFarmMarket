@@ -23,7 +23,8 @@ public class HomeController : Controller
         UserManager<User> userManager,
         IDataProtectionService dataProtectionService,
         IAuditLogService auditLogService,
-        ISessionService sessionService)
+        ISessionService sessionService
+    )
     {
         _logger = logger;
         _userManager = userManager;
@@ -65,7 +66,7 @@ public class HomeController : Controller
             DeliveryAddress = user.DeliveryAddress,
             CreditCardNumber = decryptedCreditCard,
             PhotoUrl = user.PhotoUrl,
-            AboutMe = encodedAboutMe
+            AboutMe = encodedAboutMe,
         };
 
         return View(viewModel);
@@ -87,7 +88,7 @@ public class HomeController : Controller
             {
                 403 => View("Error403"),
                 404 => View("Error404"),
-                _ => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier })
+                _ => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier }),
             };
         }
 

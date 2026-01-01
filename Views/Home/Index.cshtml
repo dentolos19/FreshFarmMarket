@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-md-8">
         <div class="card shadow mb-4">
             <div class="card-header bg-success text-white">
@@ -112,11 +112,11 @@
 
 @section Scripts {
     <script>
-        document.getElementById('toggleCreditCard').addEventListener('click', function() {
+        document.getElementById('toggleCreditCard').addEventListener('click', function () {
             var masked = document.getElementById('creditCardMasked');
             var full = document.getElementById('creditCardFull');
             var button = this;
-            
+
             if (masked.style.display !== 'none') {
                 masked.style.display = 'none';
                 full.style.display = 'inline';

@@ -14,9 +14,9 @@
             <div class="card-body">
                 <form asp-action="Register" method="post" enctype="multipart/form-data" id="registerForm">
                     @Html.AntiForgeryToken()
-                    
+
                     <div asp-validation-summary="All" class="text-danger alert alert-danger" style="display: @(ViewData.ModelState.ErrorCount > 0 ? "block" : "none")"></div>
-                    
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="FullName" class="form-label"></label>
@@ -118,7 +118,7 @@
     <partial name="_ValidationScriptsPartial" />
     <script>
         // Password strength meter
-        document.getElementById('password').addEventListener('input', function() {
+        document.getElementById('password').addEventListener('input', function () {
             var password = this.value;
             var strength = 0;
             var text = '';
@@ -153,14 +153,14 @@
         });
 
         // reCAPTCHA v3
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
             e.preventDefault();
             var form = this;
             var siteKey = '@Configuration["ReCaptcha:SiteKey"]';
-            
+
             if (siteKey && siteKey !== 'YOUR_RECAPTCHA_SITE_KEY') {
-                grecaptcha.ready(function() {
-                    grecaptcha.execute(siteKey, {action: 'register'}).then(function(token) {
+                grecaptcha.ready(function () {
+                    grecaptcha.execute(siteKey, { action: 'register' }).then(function (token) {
                         document.getElementById('recaptchaToken').value = token;
                         form.submit();
                     });

@@ -17,7 +17,8 @@ public class RecaptchaService : IRecaptchaService
     public RecaptchaService(
         IConfiguration configuration,
         IHttpClientFactory httpClientFactory,
-        ILogger<RecaptchaService> logger)
+        ILogger<RecaptchaService> logger
+    )
     {
         _configuration = configuration;
         _httpClientFactory = httpClientFactory;
@@ -46,7 +47,8 @@ public class RecaptchaService : IRecaptchaService
             var client = _httpClientFactory.CreateClient();
             var response = await client.PostAsync(
                 $"https://www.google.com/recaptcha/api/siteverify?secret={secretKey}&response={token}",
-                null);
+                null
+            );
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<RecaptchaResponse>(jsonResponse);
@@ -59,8 +61,10 @@ public class RecaptchaService : IRecaptchaService
 
             if (!result.Success)
             {
-                _logger.LogWarning("reCAPTCHA validation failed: {ErrorCodes}",
-                    string.Join(", ", result.ErrorCodes ?? Array.Empty<string>()));
+                _logger.LogWarning(
+                    "reCAPTCHA validation failed: {ErrorCodes}",
+                    string.Join(", ", result.ErrorCodes ?? Array.Empty<string>())
+                );
                 return false;
             }
 

@@ -28,15 +28,15 @@ public class PasswordHistoryService : IPasswordHistoryService
         {
             UserId = userId,
             HashedPassword = hashedPassword,
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow,
         };
 
         _context.PasswordHistories.Add(passwordHistory);
         await _context.SaveChangesAsync();
 
         // Keep only the last N passwords
-        var oldPasswords = await _context.PasswordHistories
-            .Where(p => p.UserId == userId)
+        var oldPasswords = await _context
+            .PasswordHistories.Where(p => p.UserId == userId)
             .OrderByDescending(p => p.CreatedAt)
             .Skip(PasswordHistoryCount)
             .ToListAsync();
@@ -52,8 +52,8 @@ public class PasswordHistoryService : IPasswordHistoryService
 
     public async Task<bool> IsPasswordInHistoryAsync(string userId, string newPassword, UserManager<User> userManager)
     {
-        var passwordHistories = await _context.PasswordHistories
-            .Where(p => p.UserId == userId)
+        var passwordHistories = await _context
+            .PasswordHistories.Where(p => p.UserId == userId)
             .OrderByDescending(p => p.CreatedAt)
             .Take(PasswordHistoryCount)
             .ToListAsync();
@@ -68,7 +68,10 @@ public class PasswordHistoryService : IPasswordHistoryService
         {
             // Use the password hasher to verify
             var result = userManager.PasswordHasher.VerifyHashedPassword(user, history.HashedPassword, newPassword);
-            if (result == PasswordVerificationResult.Success || result == PasswordVerificationResult.SuccessRehashNeeded)
+            if (
+                result == PasswordVerificationResult.Success
+                || result == PasswordVerificationResult.SuccessRehashNeeded
+            )
             {
                 _logger.LogWarning("User {UserId} attempted to reuse a previous password", userId);
                 return true;

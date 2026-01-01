@@ -11,8 +11,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AuthDbContext>();
 
 // Configure Data Protection for credit card encryption
-builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(builder.Environment.ContentRootPath, "DataProtection-Keys")))
+builder
+    .Services.AddDataProtection()
+    .PersistKeysToFileSystem(
+        new DirectoryInfo(Path.Combine(builder.Environment.ContentRootPath, "DataProtection-Keys"))
+    )
     .SetApplicationName("FreshFarmMarket");
 
 // Configure Identity with security settings
@@ -87,17 +90,20 @@ if (!app.Environment.IsDevelopment())
 }
 
 // Custom middleware to remove security-sensitive headers
-app.Use(async (context, next) =>
-{
-    context.Response.Headers.Remove("X-Powered-By");
-    context.Response.Headers.Remove("Server");
-    context.Response.Headers["X-Content-Type-Options"] = "nosniff";
-    context.Response.Headers["X-Frame-Options"] = "DENY";
-    context.Response.Headers["X-XSS-Protection"] = "1; mode=block";
-    context.Response.Headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
-    context.Response.Headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com; frame-src https://www.google.com; style-src 'self' 'unsafe-inline';";
-    await next();
-});
+app.Use(
+    async (context, next) =>
+    {
+        context.Response.Headers.Remove("X-Powered-By");
+        context.Response.Headers.Remove("Server");
+        context.Response.Headers["X-Content-Type-Options"] = "nosniff";
+        context.Response.Headers["X-Frame-Options"] = "DENY";
+        context.Response.Headers["X-XSS-Protection"] = "1; mode=block";
+        context.Response.Headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
+        context.Response.Headers["Content-Security-Policy"] =
+            "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com; frame-src https://www.google.com; style-src 'self' 'unsafe-inline';";
+        await next();
+    }
+);
 
 // Custom error pages
 app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");

@@ -94,8 +94,8 @@ public class FileUploadService : IFileUploadService
             return false;
         }
 
-        return headerBytes[0] == jpegSignature[0] &&
-               headerBytes[1] == jpegSignature[1] &&
-               headerBytes[2] == jpegSignature[2];
+        return headerBytes[0] == jpegSignature[0]
+            && headerBytes[1] == jpegSignature[1]
+            && headerBytes[2] == jpegSignature[2];
     }
 }

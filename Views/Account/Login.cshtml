@@ -22,7 +22,7 @@
                 <form asp-action="Login" method="post" id="loginForm">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
-                    
+
                     <div asp-validation-summary="All" class="text-danger alert alert-danger" style="display: @(ViewData.ModelState.ErrorCount > 0 ? "block" : "none")"></div>
 
                     <div class="mb-3">
@@ -62,14 +62,14 @@
     <partial name="_ValidationScriptsPartial" />
     <script>
         // reCAPTCHA v3
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
             e.preventDefault();
             var form = this;
             var siteKey = '@Configuration["ReCaptcha:SiteKey"]';
-            
+
             if (siteKey && siteKey !== 'YOUR_RECAPTCHA_SITE_KEY') {
-                grecaptcha.ready(function() {
-                    grecaptcha.execute(siteKey, {action: 'login'}).then(function(token) {
+                grecaptcha.ready(function () {
+                    grecaptcha.execute(siteKey, { action: 'login' }).then(function (token) {
                         document.getElementById('recaptchaToken').value = token;
                         form.submit();
                     });

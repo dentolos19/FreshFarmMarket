@@ -1,16 +1,20 @@
-# Editor configurations
+# IDE configurations
 .vs/
 .idea/
 
 # Project files
 bin/
 obj/
-*.user
-*.suo
+DataProtection-Keys/
+*.db*
 
 # User files
 .env*
 !.env*.template
+appsettings*
+!appsettings*.template.json
+*.user
+*.suo
 
 # Miscellaneous files
 .DS_Store

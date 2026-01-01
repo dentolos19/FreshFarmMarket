@@ -29,14 +29,13 @@ public class AuditLogService : IAuditLogService
         {
             UserId = userId,
             Action = action,
-            Timestamp = DateTime.UtcNow
+            Timestamp = DateTime.UtcNow,
         };
 
         _context.AuditLogs.Add(auditLog);
         await _context.SaveChangesAsync();
 
-        _logger.LogInformation("Audit: User {UserId} - {Action} at {Timestamp}",
-            userId, action, auditLog.Timestamp);
+        _logger.LogInformation("Audit: User {UserId} - {Action} at {Timestamp}", userId, action, auditLog.Timestamp);
     }
 
     public async Task LogLoginSuccessAsync(string userId)

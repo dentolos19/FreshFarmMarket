@@ -32,7 +32,8 @@ public class AccountController : Controller
         IOtpService otpService,
         ISessionService sessionService,
         IPasswordHistoryService passwordHistoryService,
-        ILogger<AccountController> logger)
+        ILogger<AccountController> logger
+    )
     {
         _userManager = userManager;
         _signInManager = signInManager;
@@ -106,7 +107,7 @@ public class AccountController : Controller
             PhotoUrl = uploadResult.FilePath!,
             AboutMe = model.AboutMe,
             LastPasswordChangedAt = DateTime.UtcNow,
-            EmailConfirmed = true
+            EmailConfirmed = true,
         };
 
         var result = await _userManager.CreateAsync(user, model.Password);
@@ -167,8 +168,10 @@ public class AccountController : Controller
         {
             var lockoutEnd = await _userManager.GetLockoutEndDateAsync(user);
             var remainingTime = lockoutEnd?.Subtract(DateTimeOffset.UtcNow);
-            ModelState.AddModelError(string.Empty,
-                $"Account is locked. Please try again in {remainingTime?.Minutes ?? 10} minutes.");
+            ModelState.AddModelError(
+                string.Empty,
+                $"Account is locked. Please try again in {remainingTime?.Minutes ?? 10} minutes."
+            );
             return View(model);
         }
 
@@ -181,14 +184,18 @@ public class AccountController : Controller
 
             if (await _userManager.IsLockedOutAsync(user))
             {
-                ModelState.AddModelError(string.Empty,
-                    "Account has been locked due to multiple failed login attempts. Please try again in 10 minutes.");
+                ModelState.AddModelError(
+                    string.Empty,
+                    "Account has been locked due to multiple failed login attempts. Please try again in 10 minutes."
+                );
             }
             else
             {
                 var remainingAttempts = 3 - await _userManager.GetAccessFailedCountAsync(user);
-                ModelState.AddModelError(string.Empty,
-                    $"Invalid login attempt. {remainingAttempts} attempts remaining before lockout.");
+                ModelState.AddModelError(
+                    string.Empty,
+                    $"Invalid login attempt. {remainingAttempts} attempts remaining before lockout."
+                );
             }
 
             return View(model);
@@ -356,8 +363,10 @@ public class AccountController : Controller
             if (timeSinceLastChange.TotalMinutes < 5)
             {
                 var remainingMinutes = 5 - (int)timeSinceLastChange.TotalMinutes;
-                ModelState.AddModelError(string.Empty,
-                    $"You can only change your password once every 5 minutes. Please wait {remainingMinutes} more minute(s).");
+                ModelState.AddModelError(
+                    string.Empty,
+                    $"You can only change your password once every 5 minutes. Please wait {remainingMinutes} more minute(s)."
+                );
                 return View(model);
             }
         }
@@ -365,8 +374,10 @@ public class AccountController : Controller
         // Check password history (prevent reuse of last 2 passwords)
         if (await _passwordHistoryService.IsPasswordInHistoryAsync(user.Id, model.NewPassword, _userManager))
         {
-            ModelState.AddModelError(string.Empty,
-                "You cannot reuse any of your last 2 passwords. Please choose a different password.");
+            ModelState.AddModelError(
+                string.Empty,
+                "You cannot reuse any of your last 2 passwords. Please choose a different password."
+            );
             return View(model);
         }
 
