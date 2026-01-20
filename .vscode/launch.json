@@ -2,11 +2,29 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug",
+      "name": "Launch",
       "type": "coreclr",
       "request": "launch",
       "program": "${workspaceFolder}/bin/Debug/net10.0/FreshFarmMarket.dll",
       "preLaunchTask": "Build"
+    },
+    {
+      "name": "Launch (Hot Reload)",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": ["watch", "run"],
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "launchBrowser": {
+        "enabled": true,
+        "args": "${auto-detect-url}",
+        "windows": {
+          "command": "cmd.exe",
+          "args": "/C start ${auto-detect-url}"
+        }
+      }
     }
   ]
 }
