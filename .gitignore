@@ -5,7 +5,7 @@
 # Project files
 bin/
 obj/
-DataProtection-Keys/
+keys/
 wwwroot/uploads/**
 *.db*
 

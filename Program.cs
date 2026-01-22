@@ -14,9 +14,7 @@ builder.Services.AddDbContext<AuthDbContext>();
 // Configure Data Protection for credit card encryption
 builder
     .Services.AddDataProtection()
-    .PersistKeysToFileSystem(
-        new DirectoryInfo(Path.Combine(builder.Environment.ContentRootPath, "DataProtection-Keys"))
-    )
+    .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(builder.Environment.ContentRootPath, "keys")))
     .SetApplicationName("FreshFarmMarket");
 
 // Configure Identity with security settings
