@@ -57,15 +57,16 @@
 - [x] Implement automatic account recovery after lockout period
 - [x] Enforce password history (avoid password reuse, max 2 password history)
 - [x] Implement change password functionality
-- [ ] Implement reset password functionality (using email link or SMS)
-- [ ] Enforce minimum and maximum password age policies
+- [x] Implement reset password functionality (using email link)
+- [x] Enforce minimum password age policy (5 minutes between changes)
+- [x] Enforce maximum password age policy (90 days, forced change on login)
 - [x] Implement Two-Factor Authentication (2FA)
 
 ## General Security Best Practices
 
 - [x] Use HTTPS for all communications
 - [x] Implement proper access controls and authorization
-- [ ] Keep all software and dependencies up to date
+- [x] Keep all software and dependencies up to date
 - [x] Follow secure coding practices
 - [ ] Regularly backup and securely store user data
 - [x] Implement logging and monitoring for security events

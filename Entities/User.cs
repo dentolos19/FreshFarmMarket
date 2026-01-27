@@ -13,4 +13,6 @@ public class User : IdentityUser
     public required string AboutMe { get; set; }
     public DateTime? LastPasswordChangedAt { get; set; }
     public string? CurrentSessionId { get; set; }
+    public string? PasswordResetToken { get; set; }
+    public DateTime? PasswordResetTokenExpiry { get; set; }
 }

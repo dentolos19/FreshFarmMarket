@@ -84,6 +84,7 @@ builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 builder.Services.AddScoped<IPasswordHistoryService, PasswordHistoryService>();
 builder.Services.AddScoped<IOtpService, OtpService>();
 builder.Services.AddScoped<ISessionService, SessionService>();
+builder.Services.AddScoped<IPasswordResetService, PasswordResetService>();
 
 var app = builder.Build();
 
