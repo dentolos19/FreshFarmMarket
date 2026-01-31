@@ -44,14 +44,18 @@ public class EmailService : IEmailService
                 HtmlBody =
                     $@"
                     <html>
-                    <body>
-                        <h2>Fresh Farm Market - Login Verification</h2>
-                        <p>Your one-time password (OTP) is:</p>
-                        <h1 style='color: #4CAF50; font-size: 32px; letter-spacing: 5px;'>{otp}</h1>
-                        <p>This OTP is valid for 5 minutes.</p>
-                        <p>If you did not request this, please ignore this email.</p>
-                        <br/>
-                        <p>Best regards,<br/>Fresh Farm Market Team</p>
+                    <body style='font-family: Arial, sans-serif; line-height: 1.6;'>
+                        <div style='max-width: 600px; margin: 0 auto; padding: 20px;'>
+                            <h2 style='color: #4CAF50;'>🥬 Fresh Farm Market - Login Verification</h2>
+                            <p>Your one-time password (OTP) is:</p>
+                            <div style='text-align: center; margin: 30px 0;'>
+                                <h1 style='color: #4CAF50; font-size: 32px; letter-spacing: 5px; margin: 0;'>{otp}</h1>
+                            </div>
+                            <p style='color: #666;'>This OTP is valid for 5 minutes.</p>
+                            <p style='color: #666;'>If you did not request this, please ignore this email.</p>
+                            <br/>
+                            <p>Best regards,<br/>Dennise Catolos</p>
+                        </div>
                     </body>
                     </html>",
             };
@@ -102,7 +106,7 @@ public class EmailService : IEmailService
                             <p style='color: #666;'>This link will expire in 30 minutes.</p>
                             <p style='color: #666;'>If you did not request a password reset, please ignore this email and your password will remain unchanged.</p>
                             <br/>
-                            <p>Best regards,<br/>Fresh Farm Market Team</p>
+                            <p>Best regards,<br/>Dennise Catolos</p>
                         </div>
                     </body>
                     </html>",
