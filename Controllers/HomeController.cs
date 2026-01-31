@@ -62,6 +62,19 @@ public class HomeController : Controller
         // HTML encode AboutMe to prevent XSS
         var encodedAboutMe = HttpUtility.HtmlEncode(user.AboutMe);
 
+        // Calculate password policy timers
+        var minPasswordAgeMinutes = 5;
+        var maxPasswordAgeDays = 90;
+        var daysUntilExpires = 0;
+        var minutesUntilCanChange = 0;
+
+        if (user.LastPasswordChangedAt.HasValue)
+        {
+            var timeSinceChange = DateTime.UtcNow - user.LastPasswordChangedAt.Value;
+            minutesUntilCanChange = Math.Max(0, minPasswordAgeMinutes - (int)timeSinceChange.TotalMinutes);
+            daysUntilExpires = Math.Max(0, maxPasswordAgeDays - (int)timeSinceChange.TotalDays);
+        }
+
         var viewModel = new UserProfileViewModel
         {
             FullName = user.FullName,
@@ -72,6 +85,11 @@ public class HomeController : Controller
             CreditCardNumber = decryptedCreditCard,
             PhotoUrl = user.PhotoUrl,
             AboutMe = encodedAboutMe,
+            LastPasswordChangedAt = user.LastPasswordChangedAt,
+            MinPasswordAgeMinutes = minPasswordAgeMinutes,
+            MaxPasswordAgeDays = maxPasswordAgeDays,
+            DaysUntilPasswordExpires = daysUntilExpires,
+            MinutesUntilCanChangePassword = minutesUntilCanChange,
         };
 
         return View(viewModel);

@@ -10,4 +10,9 @@ public class UserProfileViewModel
     public string CreditCardNumber { get; set; } = string.Empty;
     public string PhotoUrl { get; set; } = string.Empty;
     public string AboutMe { get; set; } = string.Empty;
+    public DateTime? LastPasswordChangedAt { get; set; }
+    public int MinPasswordAgeMinutes { get; set; }
+    public int MaxPasswordAgeDays { get; set; }
+    public int DaysUntilPasswordExpires { get; set; }
+    public int MinutesUntilCanChangePassword { get; set; }
 }

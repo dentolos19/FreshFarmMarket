@@ -3,108 +3,208 @@
     ViewData["Title"] = "My Profile";
 }
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="card shadow">
-            <div class="card-header bg-success text-white">
-                <h5 class="mb-0">👤 Profile Photo</h5>
+<div class="container-fluid">
+    <div class="row g-4">
+        <!-- Left Column: Profile Photo & Password Policy -->
+        <div class="col-lg-4">
+            <!-- Profile Photo Card -->
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-gradient text-dark" style="background: linear-gradient(135deg, #198754 0%, #0d6e3e 100%);">
+                    <h5 class="mb-0"><i class="bi bi-person-circle"></i> Profile Photo</h5>
+                </div>
+                <div class="card-body text-center p-4">
+                    @if (!string.IsNullOrEmpty(Model.PhotoUrl))
+                    {
+                        <div class="position-relative d-inline-block mb-3">
+                            <img src="@Model.PhotoUrl" alt="Profile Photo" class="img-fluid rounded-circle shadow" style="width: 180px; height: 180px; object-fit: cover; border: 5px solid #e9ecef;" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow" style="width: 180px; height: 180px; border: 5px solid #e9ecef;">
+                            <span class="text-white" style="font-size: 80px;">👤</span>
+                        </div>
+                    }
+                    <h4 class="mb-2 fw-bold">@Model.FullName</h4>
+                    <p class="text-muted mb-0"><i class="bi bi-envelope"></i> @Model.Email</p>
+                </div>
             </div>
-            <div class="card-body text-center">
-                @if (!string.IsNullOrEmpty(Model.PhotoUrl))
-                {
-                    <img src="@Model.PhotoUrl" alt="Profile Photo" class="img-fluid rounded-circle mb-3" style="max-width: 200px; max-height: 200px; object-fit: cover;" />
-                }
-                else
-                {
-                    <div class="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 200px; height: 200px;">
-                        <span class="text-white display-1">👤</span>
-                    </div>
-                }
-                <h4>@Model.FullName</h4>
-                <p class="text-muted">@Model.Email</p>
+
+            <!-- Password Policy Card -->
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-gradient text-dark" style="background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);">
+                    <h5 class="mb-0"><i class="bi bi-shield-lock"></i> Password Security</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.LastPasswordChangedAt.HasValue)
+                    {
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <small class="text-muted fw-semibold">Minimum Age Policy</small>
+                                <span class="badge bg-info">@Model.MinPasswordAgeMinutes min</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div id="minAgeProgress" class="progress-bar bg-info" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <div class="mt-2 text-center">
+                                @if (Model.MinutesUntilCanChangePassword > 0)
+                                {
+                                    <small class="text-muted">
+                                        <i class="bi bi-clock"></i> Can change in <strong id="minAgeTimer" class="text-info">@TimeSpan.FromMinutes(Model.MinutesUntilCanChangePassword).ToString(@"mm\:ss")</strong>
+                                    </small>
+                                }
+                                else
+                                {
+                                    <small class="text-success">
+                                        <i class="bi bi-check-circle-fill"></i> <strong>You can change your password now</strong>
+                                    </small>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <small class="text-muted fw-semibold">Maximum Age Policy</small>
+                                <span class="badge bg-warning text-dark">@Model.MaxPasswordAgeDays days</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div id="maxAgeProgress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <div class="mt-2 text-center">
+                                @if (Model.DaysUntilPasswordExpires > 7)
+                                {
+                                    <small class="text-success">
+                                        <i class="bi bi-check-circle"></i> Expires in <strong id="maxAgeTimer">@Model.DaysUntilPasswordExpires days</strong>
+                                    </small>
+                                }
+                                else if (Model.DaysUntilPasswordExpires > 0)
+                                {
+                                    <small class="text-warning">
+                                        <i class="bi bi-exclamation-triangle-fill"></i> Expires in <strong id="maxAgeTimer">@Model.DaysUntilPasswordExpires days</strong>
+                                    </small>
+                                }
+                                else
+                                {
+                                    <small class="text-danger">
+                                        <i class="bi bi-x-circle-fill"></i> <strong>Password has expired!</strong>
+                                    </small>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <small class="text-muted d-block mb-2">
+                                Last changed: @Model.LastPasswordChangedAt.Value.ToLocalTime().ToString("MMM dd, yyyy 'at' h:mm tt")
+                            </small>
+                            <a asp-controller="Account" asp-action="ChangePassword" class="btn btn-sm btn-outline-primary w-100">
+                                <i class="bi bi-key"></i> Change Password
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning text-center mb-0">
+                            <i class="bi bi-exclamation-triangle"></i> No password change history
+                        </div>
+                    }
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-8">
-        <div class="card shadow mb-4">
-            <div class="card-header bg-success text-white">
-                <h5 class="mb-0">📋 Personal Information</h5>
-            </div>
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <strong>Full Name:</strong>
-                    </div>
-                    <div class="col-md-8">
-                        @Model.FullName
-                    </div>
+        <!-- Right Column: Information Cards -->
+        <div class="col-lg-8">
+            <!-- Personal Information Card -->
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-gradient text-dark" style="background: linear-gradient(135deg, #198754 0%, #0d6e3e 100%);">
+                    <h5 class="mb-0"><i class="bi bi-person-vcard"></i> Personal Information</h5>
                 </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <strong>Email:</strong>
-                    </div>
-                    <div class="col-md-8">
-                        @Model.Email
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <strong>Gender:</strong>
-                    </div>
-                    <div class="col-md-8">
-                        @Model.Gender
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <strong>Mobile Number:</strong>
-                    </div>
-                    <div class="col-md-8">
-                        @Model.MobileNumber
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <strong>Delivery Address:</strong>
-                    </div>
-                    <div class="col-md-8">
-                        @Model.DeliveryAddress
+                <div class="card-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded">
+                                <small class="text-muted d-block mb-1"><i class="bi bi-person"></i> Full Name</small>
+                                <strong>@Model.FullName</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded">
+                                <small class="text-muted d-block mb-1"><i class="bi bi-envelope"></i> Email Address</small>
+                                <strong>@Model.Email</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded">
+                                <small class="text-muted d-block mb-1"><i class="bi bi-gender-ambiguous"></i> Gender</small>
+                                <strong>@Model.Gender</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded">
+                                <small class="text-muted d-block mb-1"><i class="bi bi-phone"></i> Mobile Number</small>
+                                <strong>@Model.MobileNumber</strong>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-3 bg-light rounded">
+                                <small class="text-muted d-block mb-1"><i class="bi bi-geo-alt"></i> Delivery Address</small>
+                                <strong>@Model.DeliveryAddress</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="card shadow mb-4">
-            <div class="card-header bg-warning">
-                <h5 class="mb-0">💳 Payment Information</h5>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <strong>Credit Card:</strong>
-                    </div>
-                    <div class="col-md-8">
-                        <span id="creditCardMasked">**** **** **** @Model.CreditCardNumber.Substring(Math.Max(0, Model.CreditCardNumber.Length - 4))</span>
-                        <span id="creditCardFull" style="display: none;">@Model.CreditCardNumber</span>
-                        <button type="button" class="btn btn-sm btn-outline-secondary ms-2" id="toggleCreditCard">
-                            Show
+            <!-- Payment Information Card -->
+            <div class="card shadow-sm border-0 mb-4 border-warning" style="border-width: 2px !important;">
+                <div class="card-header bg-gradient text-dark" style="background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%);">
+                    <h5 class="mb-0"><i class="bi bi-credit-card"></i> Payment Information</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded">
+                        <div>
+                            <small class="text-muted d-block mb-2"><i class="bi bi-credit-card-2-front"></i> Credit Card Number</small>
+                            <div class="d-flex align-items-center gap-2">
+                                <span id="creditCardMasked" class="font-monospace fs-5 fw-bold">
+                                    •••• •••• •••• @Model.CreditCardNumber.Substring(Math.Max(0, Model.CreditCardNumber.Length - 4))
+                                </span>
+                                <span id="creditCardFull" style="display: none;" class="font-monospace fs-5 fw-bold text-danger">
+                                    @Model.CreditCardNumber
+                                </span>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline-secondary" id="toggleCreditCard">
+                            <i class="bi bi-eye" id="toggleIcon"></i>
+                            <span id="toggleText">Show</span>
                         </button>
                     </div>
+                    <div class="alert alert-warning mt-3 mb-0 d-flex align-items-start">
+                        <i class="bi bi-exclamation-triangle-fill me-2 mt-1"></i>
+                        <small>Keep your payment information secure. Never share it with anyone.</small>
+                    </div>
                 </div>
-                <small class="text-muted mt-2 d-block">
-                    <em>⚠️ Credit card access is logged for security purposes.</em>
-                </small>
             </div>
-        </div>
 
-        <div class="card shadow">
-            <div class="card-header bg-info text-white">
-                <h5 class="mb-0">📝 About Me</h5>
-            </div>
-            <div class="card-body">
-                @* AboutMe is already HTML-encoded in the controller to prevent XSS *@
-                <p>@Html.Raw(Model.AboutMe)</p>
+            <!-- About Me Card -->
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-gradient text-dark" style="background: linear-gradient(135deg, #0dcaf0 0%, #0891b2 100%);">
+                    <h5 class="mb-0"><i class="bi bi-chat-left-text"></i> About Me</h5>
+                </div>
+                <div class="card-body p-4">
+                    @if (!string.IsNullOrWhiteSpace(Model.AboutMe))
+                    {
+                        <div class="p-3 bg-light rounded">
+                            @* AboutMe is already HTML-encoded in the controller to prevent XSS *@
+                            <p class="mb-0">@Html.Raw(Model.AboutMe)</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted py-3">
+                            <i class="bi bi-chat-dots" style="font-size: 2rem;"></i>
+                            <p class="mb-0 mt-2">No information provided</p>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
@@ -112,20 +212,87 @@
 
 @section Scripts {
     <script>
+        // Credit card toggle functionality
         document.getElementById('toggleCreditCard').addEventListener('click', function () {
             var masked = document.getElementById('creditCardMasked');
             var full = document.getElementById('creditCardFull');
             var button = this;
+            var icon = document.getElementById('toggleIcon');
+            var text = document.getElementById('toggleText');
 
             if (masked.style.display !== 'none') {
                 masked.style.display = 'none';
                 full.style.display = 'inline';
-                button.textContent = 'Hide';
+                icon.className = 'bi bi-eye-slash';
+                text.textContent = 'Hide';
             } else {
                 masked.style.display = 'inline';
                 full.style.display = 'none';
-                button.textContent = 'Show';
+                icon.className = 'bi bi-eye';
+                text.textContent = 'Show';
             }
         });
+
+        @if (Model.LastPasswordChangedAt.HasValue)
+            {
+                <text>
+                                        // Password policy timers
+                    var lastPasswordChanged = new Date('@Model.LastPasswordChangedAt.Value.ToString("o")');
+                    var minAgeMinutes = @Model.MinPasswordAgeMinutes;
+                    var maxAgeDays = @Model.MaxPasswordAgeDays;
+
+                    function updatePasswordTimers() {
+                                            var now = new Date();
+                    var timeSinceChange = Math.floor((now - lastPasswordChanged) / 1000); // in seconds
+
+                    // Minimum age timer (countdown)
+                    var minAgeSeconds = minAgeMinutes * 60;
+                    var secondsUntilCanChange = Math.max(0, minAgeSeconds - timeSinceChange);
+                    var minutesRemaining = Math.floor(secondsUntilCanChange / 60);
+                    var secondsRemaining = secondsUntilCanChange % 60;
+
+                    var minAgeProgress = Math.min(100, (timeSinceChange / minAgeSeconds) * 100);
+                    document.getElementById('minAgeProgress').style.width = minAgeProgress + '%';
+
+                    var minAgeTimerElement = document.getElementById('minAgeTimer');
+                    if (minAgeTimerElement) {
+                                                if (secondsUntilCanChange > 0) {
+                        minAgeTimerElement.textContent =
+                        String(minutesRemaining).padStart(2, '0') + ':' +
+                        String(secondsRemaining).padStart(2, '0');
+                                                } else {
+                        minAgeTimerElement.parentElement.innerHTML =
+                        '<small class="text-success"><i class="bi bi-check-circle-fill"></i> <strong>You can change your password now</strong></small>';
+                                                }
+                                            }
+
+                    // Maximum age timer (days remaining)
+                    var daysSinceChange = timeSinceChange / (24 * 60 * 60);
+                    var daysRemaining = Math.max(0, maxAgeDays - daysSinceChange);
+                    var maxAgeProgress = Math.min(100, (daysSinceChange / maxAgeDays) * 100);
+
+                    var progressBar = document.getElementById('maxAgeProgress');
+                    progressBar.style.width = maxAgeProgress + '%';
+
+                                            // Change color based on days remaining
+                                            if (daysRemaining > 7) {
+                        progressBar.className = 'progress-bar bg-success';
+                                            } else if (daysRemaining > 0) {
+                        progressBar.className = 'progress-bar bg-warning';
+                                            } else {
+                        progressBar.className = 'progress-bar bg-danger';
+                                            }
+
+                    var maxAgeTimerElement = document.getElementById('maxAgeTimer');
+                    if (maxAgeTimerElement) {
+                        maxAgeTimerElement.textContent = Math.floor(daysRemaining) + ' days';
+                                            }
+                                        }
+
+                    // Update timers immediately and then every second
+                    updatePasswordTimers();
+                    setInterval(updatePasswordTimers, 1000);
+                </text>
+        }
     </script>
 }
