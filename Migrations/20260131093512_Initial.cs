@@ -39,6 +39,8 @@ namespace FreshFarmMarket.Migrations
                     AboutMe = table.Column<string>(type: "TEXT", nullable: false),
                     LastPasswordChangedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
                     CurrentSessionId = table.Column<string>(type: "TEXT", nullable: true),
+                    PasswordResetToken = table.Column<string>(type: "TEXT", nullable: true),
+                    PasswordResetTokenExpiry = table.Column<DateTime>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -173,6 +175,11 @@ namespace FreshFarmMarket.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Action = table.Column<string>(type: "TEXT", nullable: false),
                     Timestamp = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IpAddress = table.Column<string>(type: "TEXT", nullable: true),
+                    UserAgent = table.Column<string>(type: "TEXT", nullable: true),
+                    Endpoint = table.Column<string>(type: "TEXT", nullable: true),
+                    Severity = table.Column<int>(type: "INTEGER", nullable: false),
+                    AdditionalData = table.Column<string>(type: "TEXT", nullable: true),
                     UserId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
