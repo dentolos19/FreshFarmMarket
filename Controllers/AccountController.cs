@@ -55,12 +55,18 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public IActionResult Register()
     {
+        if (User.Identity?.IsAuthenticated == true)
+        {
+            return RedirectToAction("Index", "Home");
+        }
         return View();
     }
 
     [HttpPost]
+    [AllowAnonymous]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Register(RegisterViewModel model)
     {
@@ -139,13 +145,19 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public IActionResult Login(string? returnUrl = null)
     {
+        if (User.Identity?.IsAuthenticated == true)
+        {
+            return RedirectToAction("Index", "Home");
+        }
         ViewData["ReturnUrl"] = returnUrl;
         return View();
     }
 
     [HttpPost]
+    [AllowAnonymous]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
     {
@@ -229,6 +241,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public IActionResult VerifyOtp()
     {
         var email = TempData["OtpEmail"] as string;
@@ -246,6 +259,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
+    [AllowAnonymous]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> VerifyOtp(VerifyOtpViewModel model)
     {
@@ -456,6 +470,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public IActionResult ForceChangePassword()
     {
         var email = TempData["ForceChangeEmail"] as string;
@@ -476,6 +491,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
+    [AllowAnonymous]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ForceChangePassword(ForceChangePasswordViewModel model)
     {
@@ -597,12 +613,14 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public IActionResult ForgotPassword()
     {
         return View();
     }
 
     [HttpPost]
+    [AllowAnonymous]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
     {
@@ -650,6 +668,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public IActionResult ResetPassword(string email, string token)
     {
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(token))
@@ -664,6 +683,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
+    [AllowAnonymous]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
     {
@@ -727,6 +747,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public IActionResult AccessDenied()
     {
         return View();

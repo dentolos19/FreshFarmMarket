@@ -14,6 +14,7 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly UserManager<User> _userManager;
+    private readonly SignInManager<User> _signInManager;
     private readonly IDataProtectionService _dataProtectionService;
     private readonly IAuditLogService _auditLogService;
     private readonly ISessionService _sessionService;
@@ -21,6 +22,7 @@ public class HomeController : Controller
     public HomeController(
         ILogger<HomeController> logger,
         UserManager<User> userManager,
+        SignInManager<User> signInManager,
         IDataProtectionService dataProtectionService,
         IAuditLogService auditLogService,
         ISessionService sessionService
@@ -28,6 +30,7 @@ public class HomeController : Controller
     {
         _logger = logger;
         _userManager = userManager;
+        _signInManager = signInManager;
         _dataProtectionService = dataProtectionService;
         _auditLogService = auditLogService;
         _sessionService = sessionService;
@@ -38,6 +41,7 @@ public class HomeController : Controller
         var user = await _userManager.GetUserAsync(User);
         if (user == null)
         {
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
 
@@ -47,6 +51,7 @@ public class HomeController : Controller
         {
             // Session is invalid or user logged in elsewhere
             HttpContext.Session.Clear();
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
 
