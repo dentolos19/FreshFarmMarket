@@ -5,20 +5,23 @@
 
 <div class="row justify-content-center">
     <div class="col-md-6 text-center">
-        <div class="card shadow border-warning">
+        <div class="card shadow-sm border-warning" style="border-width: 2px !important;">
             <div class="card-body py-5">
-                <h1 class="display-1 text-warning">404</h1>
-                <h2 class="text-warning">🔍 Page Not Found</h2>
-                <p class="lead text-muted">
+                <h1 class="display-1 text-warning fw-bold">404</h1>
+                <div class="text-warning mb-3">
+                    <i class="bi bi-search" style="font-size: 4rem;"></i>
+                </div>
+                <h2 class="text-warning mb-3">Page Not Found</h2>
+                <p class="lead text-muted mb-2">
                     The page you're looking for doesn't exist or has been moved.
                 </p>
-                <p class="text-muted">
+                <p class="text-muted mb-4">
                     Please check the URL or navigate using the menu above.
                 </p>
-                <hr />
+                <hr class="my-4" />
                 <div class="d-flex justify-content-center gap-2">
-                    <a asp-controller="Home" asp-action="Index" class="btn btn-success">Go to Home</a>
-                    <a href="javascript:history.back()" class="btn btn-outline-secondary">Go Back</a>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-success"><i class="bi bi-house"></i> Go to Home</a>
+                    <a href="javascript:history.back()" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Go Back</a>
                 </div>
             </div>
         </div>

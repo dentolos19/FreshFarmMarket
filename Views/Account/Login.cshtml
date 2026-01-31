@@ -7,11 +7,11 @@
 
 <div class="row justify-content-center">
     <div class="col-md-5">
-        <div class="card shadow">
-            <div class="card-header bg-success text-white">
-                <h4 class="mb-0">🥬 Login to Fresh Farm Market</h4>
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-gradient text-dark" style="background: linear-gradient(135deg, #198754 0%, #0d6e3e 100%);">
+                <h4 class="mb-0"><i class="bi bi-box-arrow-in-right"></i> Login to Fresh Farm Market</h4>
             </div>
-            <div class="card-body">
+            <div class="card-body p-4">
                 @if (TempData["SuccessMessage"] != null)
                 {
                     <div class="alert alert-success">
@@ -26,17 +26,17 @@
                     <div asp-validation-summary="All" class="text-danger alert alert-danger" style="display: @(ViewData.ModelState.ErrorCount > 0 ? "block" : "none")"></div>
 
                     <div class="mb-3">
-                        <label asp-for="Email" class="form-label"></label>
+                        <label asp-for="Email" class="form-label"><i class="bi bi-envelope"></i> Email Address</label>
                         <input asp-for="Email" class="form-control" placeholder="john@example.com" autofocus />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Password" class="form-label"></label>
+                        <label asp-for="Password" class="form-label"><i class="bi bi-lock"></i> Password</label>
                         <input asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                         <div class="text-end mt-1">
-                            <a asp-action="ForgotPassword" class="small">Forgot password?</a>
+                            <a asp-action="ForgotPassword" class="small text-decoration-none"><i class="bi bi-question-circle"></i> Forgot password?</a>
                         </div>
                     </div>
 
@@ -48,7 +48,7 @@
                     <input type="hidden" asp-for="RecaptchaToken" id="recaptchaToken" />
 
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-success btn-lg">Login</button>
+                        <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-box-arrow-in-right"></i> Login</button>
                     </div>
                 </form>
 

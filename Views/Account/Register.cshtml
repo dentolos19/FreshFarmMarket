@@ -7,11 +7,11 @@
 
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <div class="card shadow">
-            <div class="card-header bg-success text-white">
-                <h4 class="mb-0">🥬 Create Your Fresh Farm Market Account</h4>
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-gradient text-dark" style="background: linear-gradient(135deg, #198754 0%, #0d6e3e 100%);">
+                <h4 class="mb-0"><i class="bi bi-person-plus"></i> Create Your Fresh Farm Market Account</h4>
             </div>
-            <div class="card-body">
+            <div class="card-body p-4">
                 <form asp-action="Register" method="post" enctype="multipart/form-data" id="registerForm">
                     @Html.AntiForgeryToken()
 
@@ -19,12 +19,12 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label asp-for="FullName" class="form-label"></label>
+                            <label asp-for="FullName" class="form-label"><i class="bi bi-person"></i> Full Name</label>
                             <input asp-for="FullName" class="form-control" placeholder="John Doe" />
                             <span asp-validation-for="FullName" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label asp-for="Email" class="form-label"></label>
+                            <label asp-for="Email" class="form-label"><i class="bi bi-envelope"></i> Email Address</label>
                             <input asp-for="Email" class="form-control" placeholder="john@example.com" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
@@ -32,7 +32,7 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label asp-for="Password" class="form-label"></label>
+                            <label asp-for="Password" class="form-label"><i class="bi bi-lock"></i> Password</label>
                             <input asp-for="Password" class="form-control" id="password" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                             <div id="passwordStrength" class="mt-2">
@@ -46,7 +46,7 @@
                             </small>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label asp-for="ConfirmPassword" class="form-label"></label>
+                            <label asp-for="ConfirmPassword" class="form-label"><i class="bi bi-lock-fill"></i> Confirm Password</label>
                             <input asp-for="ConfirmPassword" class="form-control" />
                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                         </div>
@@ -54,7 +54,7 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label asp-for="Gender" class="form-label"></label>
+                            <label asp-for="Gender" class="form-label"><i class="bi bi-gender-ambiguous"></i> Gender</label>
                             <select asp-for="Gender" class="form-select">
                                 <option value="">Select Gender</option>
                                 <option value="Male">Male</option>
@@ -65,35 +65,35 @@
                             <span asp-validation-for="Gender" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label asp-for="MobileNumber" class="form-label"></label>
+                            <label asp-for="MobileNumber" class="form-label"><i class="bi bi-phone"></i> Mobile Number</label>
                             <input asp-for="MobileNumber" class="form-control" placeholder="+1234567890" />
                             <span asp-validation-for="MobileNumber" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="DeliveryAddress" class="form-label"></label>
+                        <label asp-for="DeliveryAddress" class="form-label"><i class="bi bi-geo-alt"></i> Delivery Address</label>
                         <textarea asp-for="DeliveryAddress" class="form-control" rows="2" placeholder="123 Farm Street, Green Valley, CA 90210"></textarea>
                         <span asp-validation-for="DeliveryAddress" class="text-danger"></span>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label asp-for="CreditCardNumber" class="form-label"></label>
+                            <label asp-for="CreditCardNumber" class="form-label"><i class="bi bi-credit-card"></i> Credit Card Number</label>
                             <input asp-for="CreditCardNumber" class="form-control" placeholder="4111111111111111" />
                             <span asp-validation-for="CreditCardNumber" class="text-danger"></span>
-                            <small class="text-muted">Your card will be encrypted securely</small>
+                            <small class="text-muted"><i class="bi bi-shield-lock"></i> Your card will be encrypted securely</small>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label asp-for="Photo" class="form-label"></label>
+                            <label asp-for="Photo" class="form-label"><i class="bi bi-image"></i> Profile Photo</label>
                             <input asp-for="Photo" type="file" class="form-control" accept=".jpg,.jpeg" />
                             <span asp-validation-for="Photo" class="text-danger"></span>
-                            <small class="text-muted">Only .JPG files allowed (max 5MB)</small>
+                            <small class="text-muted"><i class="bi bi-info-circle"></i> Only .JPG files allowed (max 5MB)</small>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="AboutMe" class="form-label"></label>
+                        <label asp-for="AboutMe" class="form-label"><i class="bi bi-chat-left-text"></i> About Me</label>
                         <textarea asp-for="AboutMe" class="form-control" rows="3" placeholder="Tell us about yourself..."></textarea>
                         <span asp-validation-for="AboutMe" class="text-danger"></span>
                     </div>
@@ -101,7 +101,7 @@
                     <input type="hidden" asp-for="RecaptchaToken" id="recaptchaToken" />
 
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-success btn-lg">Create Account</button>
+                        <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-person-plus"></i> Create Account</button>
                     </div>
                 </form>
 
