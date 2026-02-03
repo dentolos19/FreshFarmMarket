@@ -60,6 +60,7 @@ public class HomeController : Controller
         await _auditLogService.LogCreditCardAccessAsync(user.Id);
 
         // HTML encode AboutMe to prevent XSS
+        var encodedDeliveryAddress = HttpUtility.HtmlEncode(user.DeliveryAddress);
         var encodedAboutMe = HttpUtility.HtmlEncode(user.AboutMe);
 
         // Calculate password policy timers
@@ -81,7 +82,7 @@ public class HomeController : Controller
             Email = user.Email ?? string.Empty,
             Gender = user.Gender,
             MobileNumber = user.MobileNumber,
-            DeliveryAddress = user.DeliveryAddress,
+            DeliveryAddress = encodedDeliveryAddress,
             CreditCardNumber = decryptedCreditCard,
             PhotoUrl = user.PhotoUrl,
             AboutMe = encodedAboutMe,
