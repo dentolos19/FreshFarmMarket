@@ -46,9 +46,9 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        // Auto-focus and auto-submit when 6 digits entered
-        document.querySelector('input[name="Otp"]').addEventListener('input', function () {
-            this.value = this.value.replace(/\D/g, '');
-        });
+                // Auto-focus and auto-submit when 6 digits entered
+                document.querySelector('input[name="Otp"]').addEventListener('input', function () {
+                    this.value = this.value.replace(/\D/g, '');
+                });
     </script>
 }

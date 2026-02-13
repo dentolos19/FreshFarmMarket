@@ -67,21 +67,21 @@
     <script>
         // reCAPTCHA v3
         document.getElementById('loginForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            var form = this;
-            var siteKey = '@Configuration["ReCaptcha:SiteKey"]';
+        e.preventDefault();
+        var form = this;
+        var siteKey = '@Configuration["ReCaptcha:SiteKey"]';
 
-            if (siteKey && siteKey !== 'YOUR_RECAPTCHA_SITE_KEY') {
-                grecaptcha.ready(function () {
-                    grecaptcha.execute(siteKey, { action: 'login' }).then(function (token) {
-                        document.getElementById('recaptchaToken').value = token;
-                        form.submit();
-                    });
-                });
-            } else {
-                document.getElementById('recaptchaToken').value = 'development-token';
-                form.submit();
-            }
+        if (siteKey && siteKey !== 'YOUR_RECAPTCHA_SITE_KEY') {
+        grecaptcha.ready(function () {
+        grecaptcha.execute(siteKey, { action: 'login' }).then(function (token) {
+        document.getElementById('recaptchaToken').value = token;
+        form.submit();
+        });
+        });
+        } else {
+        document.getElementById('recaptchaToken').value = 'development-token';
+        form.submit();
+        }
         });
     </script>
 }

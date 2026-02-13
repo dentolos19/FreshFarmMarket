@@ -212,87 +212,87 @@
 
 @section Scripts {
     <script>
-            // Credit card toggle functionality
-            document.getElementById('toggleCreditCard').addEventListener('click', function () {
-                var masked = document.getElementById('creditCardMasked');
-                var full = document.getElementById('creditCardFull');
-                var button = this;
-                var icon = document.getElementById('toggleIcon');
-                var text = document.getElementById('toggleText');
+                    // Credit card toggle functionality
+                    document.getElementById('toggleCreditCard').addEventListener('click', function () {
+                        var masked = document.getElementById('creditCardMasked');
+                        var full = document.getElementById('creditCardFull');
+                        var button = this;
+                        var icon = document.getElementById('toggleIcon');
+                        var text = document.getElementById('toggleText');
 
-                if (masked.style.display !== 'none') {
-                    masked.style.display = 'none';
-                    full.style.display = 'inline';
-                    icon.className = 'bi bi-eye-slash';
-                    text.textContent = 'Hide';
-                } else {
-                    masked.style.display = 'inline';
-                    full.style.display = 'none';
-                    icon.className = 'bi bi-eye';
-                    text.textContent = 'Show';
-                }
-            });
+                        if (masked.style.display !== 'none') {
+                            masked.style.display = 'none';
+                            full.style.display = 'inline';
+                            icon.className = 'bi bi-eye-slash';
+                            text.textContent = 'Hide';
+                        } else {
+                            masked.style.display = 'inline';
+                            full.style.display = 'none';
+                            icon.className = 'bi bi-eye';
+                            text.textContent = 'Show';
+                        }
+                    });
 
-            @if (Model.LastPasswordChangedAt.HasValue)
-                {
-                        <text>
-                                                                                                                                    // Password policy timers
-                                var lastPasswordChanged = new Date('@Model.LastPasswordChangedAt.Value.ToString("o")');
-                                var minAgeMinutes = @Model.MinPasswordAgeMinutes;
-                                var maxAgeDays = @Model.MaxPasswordAgeDays;
+                    @if (Model.LastPasswordChangedAt.HasValue)
+                        {
+                                        <text>
+                                                                                                                                                            // Password policy timers
+                                                        var lastPasswordChanged = new Date('@Model.LastPasswordChangedAt.Value.ToString("o")');
+                                                        var minAgeMinutes = @Model.MinPasswordAgeMinutes;
+                                                        var maxAgeDays = @Model.MaxPasswordAgeDays;
 
-                                function updatePasswordTimers() {
-                                                                                                                                        var now = new Date();
-                                var timeSinceChange = Math.floor((now - lastPasswordChanged) / 1000); // in seconds
+                                                        function updatePasswordTimers() {
+                                                                                                                                                                var now = new Date();
+                                                        var timeSinceChange = Math.floor((now - lastPasswordChanged) / 1000); // in seconds
 
-                                // Minimum age timer (countdown)
-                                var minAgeSeconds = minAgeMinutes * 60;
-                                var secondsUntilCanChange = Math.max(0, minAgeSeconds - timeSinceChange);
-                                var minutesRemaining = Math.floor(secondsUntilCanChange / 60);
-                                var secondsRemaining = secondsUntilCanChange % 60;
+                                                        // Minimum age timer (countdown)
+                                                        var minAgeSeconds = minAgeMinutes * 60;
+                                                        var secondsUntilCanChange = Math.max(0, minAgeSeconds - timeSinceChange);
+                                                        var minutesRemaining = Math.floor(secondsUntilCanChange / 60);
+                                                        var secondsRemaining = secondsUntilCanChange % 60;
 
-                                var minAgeProgress = Math.min(100, (timeSinceChange / minAgeSeconds) * 100);
-                                document.getElementById('minAgeProgress').style.width = minAgeProgress + '%';
+                                                        var minAgeProgress = Math.min(100, (timeSinceChange / minAgeSeconds) * 100);
+                                                        document.getElementById('minAgeProgress').style.width = minAgeProgress + '%';
 
-                                var minAgeTimerElement = document.getElementById('minAgeTimer');
-                                if (minAgeTimerElement) {
-                                                                                                                                            if (secondsUntilCanChange > 0) {
-                                    minAgeTimerElement.textContent =
-                                    String(minutesRemaining).padStart(2, '0') + ':' +
-                                    String(secondsRemaining).padStart(2, '0');
-                                                                                                                                            } else {
-                                    minAgeTimerElement.parentElement.innerHTML =
-                                    '<small class="text-success"><i class="bi bi-check-circle-fill"></i> <strong>You can change your password now</strong></small>';
-                                                                                                                                            }
-                                                                                                                                        }
+                                                        var minAgeTimerElement = document.getElementById('minAgeTimer');
+                                                        if (minAgeTimerElement) {
+                                                                                                                                                                    if (secondsUntilCanChange > 0) {
+                                                            minAgeTimerElement.textContent =
+                                                            String(minutesRemaining).padStart(2, '0') + ':' +
+                                                            String(secondsRemaining).padStart(2, '0');
+                                                                                                                                                                    } else {
+                                                            minAgeTimerElement.parentElement.innerHTML =
+                                                            '<small class="text-success"><i class="bi bi-check-circle-fill"></i> <strong>You can change your password now</strong></small>';
+                                                                                                                                                                    }
+                                                                                                                                                                }
 
-                                // Maximum age timer (days remaining)
-                                var daysSinceChange = timeSinceChange / (24 * 60 * 60);
-                                var daysRemaining = Math.max(0, maxAgeDays - daysSinceChange);
-                                var maxAgeProgress = Math.min(100, (daysSinceChange / maxAgeDays) * 100);
+                                                        // Maximum age timer (days remaining)
+                                                        var daysSinceChange = timeSinceChange / (24 * 60 * 60);
+                                                        var daysRemaining = Math.max(0, maxAgeDays - daysSinceChange);
+                                                        var maxAgeProgress = Math.min(100, (daysSinceChange / maxAgeDays) * 100);
 
-                                var progressBar = document.getElementById('maxAgeProgress');
-                                progressBar.style.width = maxAgeProgress + '%';
+                                                        var progressBar = document.getElementById('maxAgeProgress');
+                                                        progressBar.style.width = maxAgeProgress + '%';
 
-                                                                                                                                        // Change color based on days remaining
-                                                                                                                                        if (daysRemaining > 7) {
-                                    progressBar.className = 'progress-bar bg-success';
-                                                                                                                                        } else if (daysRemaining > 0) {
-                                    progressBar.className = 'progress-bar bg-warning';
-                                                                                                                                        } else {
-                                    progressBar.className = 'progress-bar bg-danger';
-                                                                                                                                        }
+                                                                                                                                                                // Change color based on days remaining
+                                                                                                                                                                if (daysRemaining > 7) {
+                                                            progressBar.className = 'progress-bar bg-success';
+                                                                                                                                                                } else if (daysRemaining > 0) {
+                                                            progressBar.className = 'progress-bar bg-warning';
+                                                                                                                                                                } else {
+                                                            progressBar.className = 'progress-bar bg-danger';
+                                                                                                                                                                }
 
-                                var maxAgeTimerElement = document.getElementById('maxAgeTimer');
-                                if (maxAgeTimerElement) {
-                                    maxAgeTimerElement.textContent = Math.floor(daysRemaining) + ' days';
-                                                                                                                                        }
-                                                                                                                                    }
+                                                        var maxAgeTimerElement = document.getElementById('maxAgeTimer');
+                                                        if (maxAgeTimerElement) {
+                                                            maxAgeTimerElement.textContent = Math.floor(daysRemaining) + ' days';
+                                                                                                                                                                }
+                                                                                                                                                            }
 
-                                // Update timers immediately and then every second
-                                updatePasswordTimers();
-                                setInterval(updatePasswordTimers, 1000);
-                        </text>
-            }
+                                                        // Update timers immediately and then every second
+                                                        updatePasswordTimers();
+                                                        setInterval(updatePasswordTimers, 1000);
+                                        </text>
+                    }
     </script>
 }

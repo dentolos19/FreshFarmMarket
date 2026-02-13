@@ -228,11 +228,11 @@
 
 @section Scripts {
   <script>
-    function changePageSize(size) {
-      const url = new URL(window.location.href);
-      url.searchParams.set('PageSize', size);
-      url.searchParams.set('Page', '1');
-      window.location.href = url.toString();
-    }
+        function changePageSize(size) {
+          const url = new URL(window.location.href);
+          url.searchParams.set('PageSize', size);
+          url.searchParams.set('Page', '1');
+          window.location.href = url.toString();
+        }
   </script>
 }
