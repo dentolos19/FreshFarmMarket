@@ -11,6 +11,7 @@ public interface IAuditLogService
         AuditLogSeverity severity = AuditLogSeverity.Info,
         string? additionalData = null
     );
+
     Task LogLoginSuccessAsync(string userId);
     Task LogLoginFailedAsync(string userId);
     Task LogLogoutAsync(string userId);

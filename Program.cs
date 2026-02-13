@@ -99,8 +99,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 // Custom middleware to remove security-sensitive headers
-app.Use(
-    async (context, next) =>
+app.Use(async (context, next) =>
     {
         context.Response.Headers.Remove("X-Powered-By");
         context.Response.Headers.Remove("Server");

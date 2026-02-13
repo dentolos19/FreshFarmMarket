@@ -63,6 +63,7 @@ public class AccountController : Controller
         {
             return RedirectToAction("Index", "Home");
         }
+
         return View();
     }
 
@@ -153,6 +154,7 @@ public class AccountController : Controller
         {
             return RedirectToAction("Index", "Home");
         }
+
         ViewData["ReturnUrl"] = returnUrl;
         return View();
     }
@@ -177,6 +179,7 @@ public class AccountController : Controller
             {
                 await _auditLogService.LogRecaptchaFailedAsync(tempUser.Id);
             }
+
             ModelState.AddModelError(string.Empty, "reCAPTCHA validation failed. Please try again.");
             return View(model);
         }
@@ -290,6 +293,7 @@ public class AccountController : Controller
             {
                 await _auditLogService.LogOtpFailedAsync(failedUser.Id);
             }
+
             ModelState.AddModelError(string.Empty, "Invalid or expired OTP. Please try again.");
             TempData["OtpEmail"] = email;
             TempData["RememberMe"] = rememberMe;
@@ -449,6 +453,7 @@ public class AccountController : Controller
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
+
             return View(model);
         }
 
@@ -553,6 +558,7 @@ public class AccountController : Controller
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
+
             TempData["ForceChangeEmail"] = email;
             TempData["RememberMe"] = rememberMe;
             TempData["ReturnUrl"] = returnUrl;
@@ -724,6 +730,7 @@ public class AccountController : Controller
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
+
             return View(model);
         }
 
