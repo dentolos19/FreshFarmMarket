@@ -2,16 +2,9 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch",
-      "type": "coreclr",
+      "name": "App",
       "request": "launch",
-      "program": "${workspaceFolder}/bin/Debug/net10.0/FreshFarmMarket.dll",
-      "preLaunchTask": "Build"
-    },
-    {
-      "name": "Launch (Hot Reload)",
       "type": "coreclr",
-      "request": "launch",
       "program": "dotnet",
       "args": ["watch", "run"],
       "env": {
