@@ -7,9 +7,6 @@
       "type": "coreclr",
       "program": "dotnet",
       "args": ["watch", "run"],
-      "env": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
       "launchBrowser": {
         "enabled": true,
         "args": "${auto-detect-url}",
